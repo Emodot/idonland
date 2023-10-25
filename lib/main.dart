@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
           ]),
       title: 'Idonland',
       theme: ThemeData(
+        fontFamily: "Jost",
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the

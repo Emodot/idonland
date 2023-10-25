@@ -92,85 +92,63 @@ class _LandingScreenState extends State<LandingScreen> {
             Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Container(
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "assets/images/landingBgV2.jpg",
+        backgroundColor: kBgColor2,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: size.height * 0.57,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    "assets/images/landing-bg.jpg",
+                  ),
+                  fit: BoxFit.cover,
+                ),
               ),
-              fit: BoxFit.cover,
+              child: Container(),
             ),
-          ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: size.height * 0.09,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Create Amazing \nBusiness Experiences.",
-                        style: TextStyle(
-                          fontSize: getLargeRegText(context),
-                          color: kWhite,
-                          fontWeight: FontWeight.w400,
-                          height: 1.2,
-                        ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.08,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: size.height * 0.05,
+                    ),
+                    Text(
+                      "Seamless Clock-ins",
+                      style: TextStyle(
+                        fontSize: getLargeRegText(context),
+                        color: kWhite,
+                        fontWeight: FontWeight.w600,
+                        height: 1.2,
                       ),
-                      SizedBox(
-                        height: size.height * 0.01,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Text(
+                      "Fed up with outdated and mistake-prone clock-in procedures?",
+                      style: TextStyle(
+                        fontSize: getBigText(context),
+                        color: kWhite,
+                        fontWeight: FontWeight.w300,
                       ),
-                      Text(
-                        "with everything you need to scale...",
-                        style: TextStyle(
-                          fontSize: getBigRegText(context),
-                          color: kWhite,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  const SlideActionBtn(),
-                  // Center(
-                  //   child: RichText(
-                  //     text: TextSpan(
-                  //       style: const TextStyle(
-                  //         fontFamily: 'Jost',
-                  //       ),
-                  //       children: [
-                  //         const TextSpan(
-                  //           text: "Don’t have an account? ",
-                  //         ),
-                  //         TextSpan(
-                  //           text: "Sign up",
-                  //           recognizer: TapGestureRecognizer()
-                  //             ..onTap = () {
-                  //               Navigator.of(context).push(
-                  //                 MaterialPageRoute(
-                  //                   builder: (context) =>
-                  //                       const AccountTypeScreen(),
-                  //                 ),
-                  //               );
-                  //             },
-                  //           style: getRegBoldTextWhite(context),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: size.height * 0.04,
-                  ),
-                ],
+                    ),
+                    const Spacer(),
+                    const SlideActionBtn(),
+                    SizedBox(
+                      height: size.height * 0.08,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -189,15 +167,12 @@ class SlideActionBtn extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: const Color(0xFF00178D),
-            // boxShadow: const [
-            //   BoxShadow(
-            //     color: Colors.black26,
-            //     blurRadius: 8,
-            //   ),
-            // ],
-          ),
+              borderRadius: BorderRadius.circular(50),
+              color: kTransparent,
+              border: Border.all(
+                color: kPrimaryColor,
+                width: 1,
+              )),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -238,6 +213,7 @@ class SlideActionBtn extends StatelessWidget {
                   )
                 : SvgPicture.asset(
                     'assets/icons/slider-btn.svg',
+                    width: 55,
                   ),
           ),
         );

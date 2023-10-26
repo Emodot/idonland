@@ -8,6 +8,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:idonland/main_layout.dart';
 // import 'package:idonland/ui/signup/newuser_signin_screen.dart';
 import 'package:idonland/utils/constant.dart';
 // import 'package:idonland/ui/signin/signin_screen.dart';
@@ -224,13 +225,12 @@ class SlideActionBtn extends StatelessWidget {
             const Duration(seconds: 2),
             () => {
                   print('working'),
-                }
-            // Navigator.of(context).push(
-            //         MaterialPageRoute(
-            //           builder: (context) => const SigninScreen(),
-            //         ),
-            //       ),
-            );
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const MainLayout(),
+                    ),
+                  ),
+                });
       },
     );
   }

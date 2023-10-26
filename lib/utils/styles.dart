@@ -171,6 +171,19 @@ getLargeText(BuildContext context) {
   ).value;
 }
 
+getLargerText(BuildContext context) {
+  return ResponsiveValue(
+    context,
+    valueWhen: [
+      const Condition.equals(name: MOBILE, value: 44.0),
+      const Condition.equals(name: TABLET, value: 46.0),
+      const Condition.equals(name: DESKTOP, value: 48.0),
+      const Condition.largerThan(name: DESKTOP, value: 50.0),
+    ],
+    defaultValue: 44.0,
+  ).value;
+}
+
 getInputBox(BuildContext context) {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),

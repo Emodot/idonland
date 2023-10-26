@@ -50,7 +50,7 @@ class _MainLayoutState extends State<MainLayout> {
           //   ),
           // );
         },
-        backgroundColor: kWhite,
+        backgroundColor: kTransparent,
         // elevation: 2.0,
         child: SvgPicture.asset("assets/icons/floatingBtnAction.svg"),
       ),

@@ -16,6 +16,7 @@ import 'package:idonland/utils/constant.dart';
 import 'package:idonland/utils/styles.dart';
 // import 'package:idonland/widgets/quick_action_box.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:slide_action/slide_action.dart';
 // import 'package:skeletons/skeletons.dart';
 
 late String deviceId;
@@ -192,7 +193,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       children: [
                         Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.04,
+                            horizontal: size.width * 0.02,
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,39 +218,45 @@ class _DashboardScreenState extends State<DashboardScreen>
                         const SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          padding: const EdgeInsets.all(3),
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(width: 1, color: kPrimaryColor),
-                            color: kTransparent,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.02,
                           ),
-                          child: TabBar(
-                            controller: tabController,
-                            indicator: BoxDecoration(
-                                color: kPrimaryColor.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(50),
-                                border:
-                                    Border.all(width: 1, color: kPrimaryColor)),
-                            labelColor: kWhite,
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: getRegText(context),
-                              fontFamily: 'Raleway',
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            height: 65,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              border:
+                                  Border.all(width: 1, color: kPrimaryColor),
+                              color: kTransparent,
                             ),
-                            splashFactory: NoSplash.splashFactory,
-                            tabs: const [
-                              Tab(
-                                text: 'Work',
+                            child: TabBar(
+                              controller: tabController,
+                              indicator: BoxDecoration(
+                                  color: kPrimaryColor.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(50),
+                                  border: Border.all(
+                                      width: 1, color: kPrimaryColor)),
+                              labelColor: kWhite,
+                              labelStyle: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: getRegText(context),
+                                fontFamily: 'Raleway',
                               ),
-                              Tab(
-                                text: 'All',
-                              ),
-                              Tab(
-                                text: 'Events',
-                              ),
-                            ],
+                              splashFactory: NoSplash.splashFactory,
+                              tabs: const [
+                                Tab(
+                                  text: 'Work',
+                                ),
+                                Tab(
+                                  text: 'All',
+                                ),
+                                Tab(
+                                  text: 'Events',
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         DashboardTopBox(
@@ -261,6 +268,38 @@ class _DashboardScreenState extends State<DashboardScreen>
                         ),
                         const SizedBox(
                           height: 10,
+                        ),
+                        // const Spacer(),
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.03),
+                          child: Column(
+                            children: [
+                              Text(
+                                '10:15',
+                                style: TextStyle(
+                                  color: kWhite,
+                                  fontFamily: 'Raleway',
+                                  fontSize: getLargerText(context),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Text(
+                                'Sunday, 17 September 2023',
+                                style: TextStyle(
+                                  color: kWhite,
+                                  fontFamily: 'Jost',
+                                  fontSize: getRegText(context),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height * 0.05,
+                              ),
+                              const SlideActionBtn(),
+                            ],
+                          ),
                         ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
@@ -563,18 +602,82 @@ class _DashboardTopBoxState extends State<DashboardTopBox> {
   }
 }
 
-class BarChartBox extends StatefulWidget {
-  const BarChartBox({super.key});
+class SlideActionBtn extends StatelessWidget {
+  const SlideActionBtn({
+    Key? key,
+  }) : super(key: key);
 
-  @override
-  State<BarChartBox> createState() => _BarChartBoxState();
-}
-
-List<double> weeklySummary = [4.40, 2.50, 42.42, 10.50, 20.20, 88.99, 50.10];
-
-class _BarChartBoxState extends State<BarChartBox> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return SlideAction(
+      trackBuilder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: kTransparent,
+              border: Border.all(
+                color: kPrimaryColor,
+                width: 1,
+              )),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(
+                width: 30,
+              ),
+              Center(
+                child: Text(
+                  // Show loading if async operation is being performed
+                  state.isPerformingAction
+                      ? "please wait..."
+                      : "slide to start",
+                  style: const TextStyle(
+                    color: kWhite,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: !state.isPerformingAction
+                    ? SvgPicture.asset(
+                        'assets/icons/chevron-double-right.svg',
+                      )
+                    : const SizedBox(),
+              ),
+            ],
+          ),
+        );
+      },
+      thumbBuilder: (context, state) {
+        return Container(
+          // margin: const EdgeInsets.all(4),
+          child: Center(
+            // Show loading indicator if async operation is being performed
+            child: state.isPerformingAction
+                ? const CupertinoActivityIndicator(
+                    color: Colors.white,
+                  )
+                : SvgPicture.asset(
+                    'assets/icons/slider-btn.svg',
+                    width: 55,
+                  ),
+          ),
+        );
+      },
+      action: () async {
+        // Async operation
+        await Future.delayed(
+            const Duration(seconds: 2),
+            () => {
+                  print('working'),
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const MainLayout(),
+                    ),
+                  ),
+                });
+      },
+    );
   }
 }

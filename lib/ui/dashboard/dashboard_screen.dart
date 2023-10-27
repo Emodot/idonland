@@ -31,7 +31,25 @@ var amountController = TextEditingController();
 var spacenameController = TextEditingController();
 dynamic transferPin;
 
-List<dynamic> boxData = [];
+List<Map<String, String>> boxData = [
+  {
+    'cardName': 'Event Name',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+  {
+    'cardName': 'Organization',
+    'cardTitle': 'Rootshive',
+    'cardCategory': 'office',
+  },
+  {
+    'cardName': 'Event Name',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+];
+dynamic selectedCard;
+late bool cardSelected;
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({
@@ -62,6 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void initState() {
     tabController = TabController(length: 3, vsync: this);
     super.initState();
+    cardSelected = true;
   }
 
   @override
@@ -259,17 +278,22 @@ class _DashboardScreenState extends State<DashboardScreen>
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         DashboardTopBox(
                           size: size,
                           balanceData: boxData,
                           nuban: '564323456',
                           // switchAccount: switchAccount,
                           loading: false,
+                          selectCard: (String) {
+                            cardSelected = true;
+                          },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 30,
                         ),
-                        // const Spacer(),
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: size.width * 0.03),
@@ -297,9 +321,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                               SizedBox(
                                 height: size.height * 0.05,
                               ),
-                              const SlideActionBtn(),
+                              SlideActionBtn(
+                                selected: cardSelected,
+                              ),
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.2,
                         ),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
@@ -421,7 +450,7 @@ class SliderIndicator extends StatelessWidget {
       height: 4,
       width: isActive ? 30 : 20,
       decoration: BoxDecoration(
-        color: isActive ? const Color(0xFF0045FF) : const Color(0xFF1E2C53),
+        color: isActive ? kPrimaryColor : const Color(0xFF333333),
         borderRadius: const BorderRadius.all(
           Radius.circular(50),
         ),
@@ -431,13 +460,14 @@ class SliderIndicator extends StatelessWidget {
 }
 
 class DashboardTopBox extends StatefulWidget {
-  // final void Function(String) switchAccount;
+  final void Function(String) selectCard;
+  // final void Function selectCard
   const DashboardTopBox({
     super.key,
     required this.size,
     required this.balanceData,
     required this.nuban,
-    // required this.switchAccount,
+    required this.selectCard,
     required this.loading,
   });
 
@@ -466,106 +496,107 @@ class _DashboardTopBoxState extends State<DashboardTopBox> {
     return Column(
       children: [
         CarouselSlider(
-          items: widget.balanceData.map((accounts) {
+          items: widget.balanceData.map((card_data) {
             return widget.loading
                 ? const CupertinoActivityIndicator(
                     color: Colors.white,
                   )
-                : Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.red,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/images/dashboardHeroBg.png",
+                : GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedCard = card_data['cardTile'];
+                        cardSelected = true;
+                        print(cardSelected);
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: card_data['cardCategory'] == 'event'
+                            ? const Color(0xFF333333)
+                            : kPrimaryColor,
+                        image: const DecorationImage(
+                          alignment: Alignment.centerRight,
+                          image: AssetImage(
+                            "assets/images/dashboardHeroBg.png",
+                          ),
+                          opacity: 0.2,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(28),
                         ),
                       ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(28),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: widget.size.width * 0.07,
-                        vertical: widget.size.width * 0.02,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                  vertical: widget.size.height * 0.03,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFF025900),
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 11,
-                                    vertical: 2,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: widget.size.width * 0.07,
+                          vertical: widget.size.width * 0.02,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.symmetric(
+                                    vertical: widget.size.height * 0.03,
                                   ),
-                                  child: Text(
-                                    "NGN",
-                                    style: TextStyle(
-                                      color: kWhite,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: getSmallerRegText(context),
+                                  decoration: BoxDecoration(
+                                    color: card_data['cardCategory'] == 'event'
+                                        ? kPrimaryColor
+                                        : const Color(0xFF333333),
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 11,
+                                      vertical: 5,
+                                    ),
+                                    child: Text(
+                                      '${card_data['cardCategory']}',
+                                      style: TextStyle(
+                                        color: kWhite,
+                                        height: 1,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: getSmallerRegText(context),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: toggleHideAmount,
-                                icon: SvgPicture.asset(
-                                  _hideAmount
-                                      ? "assets/icons/showAmount.svg"
-                                      : "assets/icons/hideAmount.svg",
-                                  width: 18,
-                                ),
-                              ),
-                              // IconButton(
-                              //   onPressed: () {
-                              //     Navigator.of(context).push(MaterialPageRoute(
-                              //         builder: (context) => const QrScanner()));
-                              //   },
-                              //   icon: Image.asset(
-                              //     "assets/images/scanDoc.png",
-                              //     // width: 65,
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: widget.size.height * 0.01,
-                          ),
-                          Text(
-                            accounts['type'] == 'Main Account'
-                                ? "Amount available to withdraw"
-                                : "${accounts['username']}'s Balance",
-                            style: TextStyle(
-                              color: kWhite,
-                              fontSize: getRegText(context),
+                                const Spacer(),
+                                // IconButton(
+                                //   onPressed: toggleHideAmount,
+                                //   icon: SvgPicture.asset(
+                                //     _hideAmount
+                                //         ? "assets/icons/showAmount.svg"
+                                //         : "assets/icons/hideAmount.svg",
+                                //     width: 18,
+                                //   ),
+                                // ),
+                              ],
                             ),
-                          ),
-                          Text(
-                            _hideAmount
-                                ? '************'
-                                : '₦${accounts['walletbalance']}',
-                            style: TextStyle(
-                              fontFamily: 'Raleway',
-                              color: kWhite,
-                              fontSize: getBiggerRegText2(context),
-                              fontWeight: FontWeight.w600,
+                            SizedBox(
+                              height: widget.size.height * 0.01,
                             ),
-                          ),
-                          SizedBox(
-                            height: widget.size.height * 0.03,
-                          ),
-                        ],
+                            Text(
+                              "${card_data['cardName']}",
+                              style: TextStyle(
+                                color: kWhite,
+                                fontSize: getRegText(context),
+                              ),
+                            ),
+                            Text(
+                              '${card_data['cardTitle']}',
+                              style: TextStyle(
+                                color: kWhite,
+                                fontSize: getBiggerRegText(context),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: widget.size.height * 0.03,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -605,21 +636,49 @@ class _DashboardTopBoxState extends State<DashboardTopBox> {
 class SlideActionBtn extends StatelessWidget {
   const SlideActionBtn({
     Key? key,
+    required this.selected,
   }) : super(key: key);
+
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
+    const ColorFilter greyFilter = ColorFilter.matrix(<double>[
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0.2126,
+      0.7152,
+      0.0722,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+    ]);
     return SlideAction(
       trackBuilder: (context, state) {
         return Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: kTransparent,
-              border: Border.all(
-                color: kPrimaryColor,
-                width: 1,
-              )),
+            borderRadius: BorderRadius.circular(50),
+            color: selected == true
+                ? const Color(0xFF1E2024)
+                : kPrimaryColor.withOpacity(0.3),
+            // border: Border.all(
+            //   color: kPrimaryColor,
+            //   width: 1,
+            // ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -661,6 +720,7 @@ class SlideActionBtn extends StatelessWidget {
                 : SvgPicture.asset(
                     'assets/icons/slider-btn.svg',
                     width: 55,
+                    colorFilter: selected == true ? null : greyFilter,
                   ),
           ),
         );
@@ -671,11 +731,11 @@ class SlideActionBtn extends StatelessWidget {
             const Duration(seconds: 2),
             () => {
                   print('working'),
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const MainLayout(),
-                    ),
-                  ),
+                  // Navigator.of(context).push(
+                  //   MaterialPageRoute(
+                  //     builder: (context) => const MainLayout(),
+                  //   ),
+                  // ),
                 });
       },
     );

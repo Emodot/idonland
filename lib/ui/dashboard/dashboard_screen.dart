@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:get/get.dart';
 // import 'package:intl/intl.dart';
 import 'package:idonland/main_layout.dart';
+import 'package:idonland/ui/dashboard/search_screen.dart';
 import 'package:idonland/ui/notification/notification_screen.dart';
 // import 'package:idonland/utils/app_constants.dart';
 import 'package:idonland/utils/constant.dart';
@@ -105,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 left: size.width * 0.05,
                 right: size.width * 0.05,
                 bottom: size.height * 0.025,
-                top: size.height * 0.09,
+                top: size.height * 0.08,
               ),
               color: kBgColor2,
               child: Row(
@@ -162,7 +163,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                         onPressed: () {
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => const NotificationScreen(),
+                              builder: (context) => const SearchScreen(),
                             ),
                           );
                         },
@@ -690,15 +691,21 @@ class SlideActionBtn extends StatelessWidget {
                   width: 30,
                 ),
                 Center(
-                  child: Text(
-                    // Show loading if async operation is being performed
-                    state.isPerformingAction
-                        ? "please wait..."
-                        : "slide to start",
-                    style: const TextStyle(
-                      color: kWhite,
-                    ),
-                  ),
+                  child: selected
+                      ? Text(
+                          state.isPerformingAction
+                              ? "please wait..."
+                              : "slide to clockin",
+                          style: const TextStyle(
+                            color: kWhite,
+                          ),
+                        )
+                      : const Text(
+                          "select a card first...",
+                          style: TextStyle(
+                            color: kWhite,
+                          ),
+                        ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 8),

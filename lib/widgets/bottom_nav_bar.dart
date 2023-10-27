@@ -132,7 +132,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                onChanged?.call(2);
+                // onChanged?.call(2);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,

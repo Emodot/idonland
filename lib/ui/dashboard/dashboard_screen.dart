@@ -80,7 +80,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void initState() {
     tabController = TabController(length: 3, vsync: this);
     super.initState();
-    cardSelected = true;
+    cardSelected = false;
   }
 
   @override
@@ -197,6 +197,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                 color: kBgColor,
                 onRefresh: () async {
                   // print('Refresh');
+                  setState(() {
+                    cardSelected = false;
+                  });
                   // await getUserDetail();
                   // await getwalletBalance();
                 },
@@ -287,8 +290,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                           nuban: '564323456',
                           // switchAccount: switchAccount,
                           loading: false,
-                          selectCard: (String) {
-                            cardSelected = true;
+                          onTap: () {
+                            setState(() {
+                              cardSelected = true;
+                            });
+                            print('data - $cardSelected');
                           },
                         ),
                         const SizedBox(
@@ -460,21 +466,23 @@ class SliderIndicator extends StatelessWidget {
 }
 
 class DashboardTopBox extends StatefulWidget {
-  final void Function(String) selectCard;
+  // final void Function(String) selectCard;
   // final void Function selectCard
   const DashboardTopBox({
     super.key,
     required this.size,
     required this.balanceData,
     required this.nuban,
-    required this.selectCard,
+    // required this.selectCard,
     required this.loading,
+    required this.onTap,
   });
 
   final Size size;
   final List balanceData;
   final String? nuban;
   final bool loading;
+  final VoidCallback onTap;
 
   @override
   State<DashboardTopBox> createState() => _DashboardTopBoxState();
@@ -502,13 +510,7 @@ class _DashboardTopBoxState extends State<DashboardTopBox> {
                     color: Colors.white,
                   )
                 : GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedCard = card_data['cardTile'];
-                        cardSelected = true;
-                        print(cardSelected);
-                      });
-                    },
+                    onTap: widget.onTap,
                     child: Container(
                       decoration: BoxDecoration(
                         color: card_data['cardCategory'] == 'event'
@@ -665,79 +667,82 @@ class SlideActionBtn extends StatelessWidget {
       1,
       0,
     ]);
-    return SlideAction(
-      trackBuilder: (context, state) {
-        return Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: selected == true
-                ? const Color(0xFF1E2024)
-                : kPrimaryColor.withOpacity(0.3),
-            // border: Border.all(
-            //   color: kPrimaryColor,
-            //   width: 1,
-            // ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                width: 30,
-              ),
-              Center(
-                child: Text(
-                  // Show loading if async operation is being performed
-                  state.isPerformingAction
-                      ? "please wait..."
-                      : "slide to start",
-                  style: const TextStyle(
-                    color: kWhite,
+    return AbsorbPointer(
+      absorbing: !selected,
+      child: SlideAction(
+        trackBuilder: (context, state) {
+          return Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: selected == true
+                  ? kPrimaryColor.withOpacity(0.3)
+                  : const Color(0xFF1E2024),
+              // border: Border.all(
+              //   color: kPrimaryColor,
+              //   width: 1,
+              // ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(
+                  width: 30,
+                ),
+                Center(
+                  child: Text(
+                    // Show loading if async operation is being performed
+                    state.isPerformingAction
+                        ? "please wait..."
+                        : "slide to start",
+                    style: const TextStyle(
+                      color: kWhite,
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: !state.isPerformingAction
-                    ? SvgPicture.asset(
-                        'assets/icons/chevron-double-right.svg',
-                      )
-                    : const SizedBox(),
-              ),
-            ],
-          ),
-        );
-      },
-      thumbBuilder: (context, state) {
-        return Container(
-          // margin: const EdgeInsets.all(4),
-          child: Center(
-            // Show loading indicator if async operation is being performed
-            child: state.isPerformingAction
-                ? const CupertinoActivityIndicator(
-                    color: Colors.white,
-                  )
-                : SvgPicture.asset(
-                    'assets/icons/slider-btn.svg',
-                    width: 55,
-                    colorFilter: selected == true ? null : greyFilter,
-                  ),
-          ),
-        );
-      },
-      action: () async {
-        // Async operation
-        await Future.delayed(
-            const Duration(seconds: 2),
-            () => {
-                  print('working'),
-                  // Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => const MainLayout(),
-                  //   ),
-                  // ),
-                });
-      },
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: !state.isPerformingAction
+                      ? SvgPicture.asset(
+                          'assets/icons/chevron-double-right.svg',
+                        )
+                      : const SizedBox(),
+                ),
+              ],
+            ),
+          );
+        },
+        thumbBuilder: (context, state) {
+          return Container(
+            // margin: const EdgeInsets.all(4),
+            child: Center(
+              // Show loading indicator if async operation is being performed
+              child: state.isPerformingAction
+                  ? const CupertinoActivityIndicator(
+                      color: Colors.white,
+                    )
+                  : SvgPicture.asset(
+                      'assets/icons/slider-btn.svg',
+                      width: 55,
+                      colorFilter: selected ? null : greyFilter,
+                    ),
+            ),
+          );
+        },
+        action: () async {
+          // Async operation
+          await Future.delayed(
+              const Duration(seconds: 2),
+              () => {
+                    print('working'),
+                    // Navigator.of(context).push(
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const MainLayout(),
+                    //   ),
+                    // ),
+                  });
+        },
+      ),
     );
   }
 }

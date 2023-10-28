@@ -39,60 +39,31 @@ class WorkplaceScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: size.width * 0.08,
-                        ),
-                        child: Text(
-                          'Account',
-                          style: TextStyle(
-                            fontSize: getBiggerText(context),
-                            fontWeight: FontWeight.w500,
-                            color: kWhite,
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: size.height * 0.02,
                       ),
                       Container(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: size.width * 0.08,
-                          ),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF1D1A18),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.06,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: size.width * 0.08,
-                        ),
-                        child: Text(
-                          'Notification',
-                          style: TextStyle(
-                            fontSize: getBiggerText(context),
-                            fontWeight: FontWeight.w500,
-                            color: kWhite,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Container(
+                        height: size.height * 0.4,
                         padding: EdgeInsets.symmetric(
                           horizontal: size.width * 0.08,
                         ),
                         decoration: const BoxDecoration(
-                          color: Color(0xFF1D1A18),
+                          color: Color(0xFF1E2024),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      Container(
+                        height: size.height * 0.2,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: size.width * 0.08,
+                        ),
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF1E2024),
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
                           ),

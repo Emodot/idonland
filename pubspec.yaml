@@ -46,6 +46,7 @@ dependencies:
   android_id: ^0.3.3
   slide_action: ^0.0.2
   carousel_slider: ^4.2.1
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:

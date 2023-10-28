@@ -21,7 +21,11 @@ class _SearchScreenState extends State<SearchScreen> {
       backgroundColor: kBgColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+          padding: EdgeInsets.only(
+            left: size.width * 0.07,
+            right: size.width * 0.07,
+            top: size.height * 0.02,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

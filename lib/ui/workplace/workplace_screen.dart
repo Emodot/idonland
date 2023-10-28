@@ -20,6 +20,7 @@ class WorkplaceScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(
+                  top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
                 child: Text(
@@ -32,7 +33,7 @@ class WorkplaceScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: size.height * 0.04,
+                height: size.height * 0.01,
               ),
               Expanded(
                 child: SingleChildScrollView(

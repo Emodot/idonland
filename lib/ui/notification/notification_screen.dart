@@ -19,21 +19,21 @@ class NotificationScreen extends StatelessWidget {
         statusBarBrightness:
             Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
-      child: Scaffold(
+      child: const Scaffold(
         backgroundColor: kBgColor,
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // CustomAppBar(size: size, name: 'Notifications',),
-              // SizedBox(
-              //   height: size.height * 0.03,
-              // ),
-              SingleNotification(size: size),
-              SingleNotification(size: size),
-            ],
-          ),
-        ),
+        // body: SafeArea(
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       // CustomAppBar(size: size, name: 'Notifications',),
+        //       // SizedBox(
+        //       //   height: size.height * 0.03,
+        //       // ),
+        //       SingleNotification(size: size),
+        //       SingleNotification(size: size),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }

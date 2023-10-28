@@ -106,7 +106,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 left: size.width * 0.05,
                 right: size.width * 0.05,
                 bottom: size.height * 0.025,
-                top: size.height * 0.08,
+                top: size.height * 0.07,
               ),
               color: kBgColor2,
               child: Row(

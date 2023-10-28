@@ -20,6 +20,7 @@ class EventsScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(
+                  top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
                 child: Text(

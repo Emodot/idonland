@@ -17,7 +17,11 @@ class ClockinScreen extends StatelessWidget {
       backgroundColor: kBgColor,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: size.width * 0.07),
+          padding: EdgeInsets.only(
+            top: size.height * 0.02,
+            left: size.width * 0.07,
+            right: size.width * 0.07,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

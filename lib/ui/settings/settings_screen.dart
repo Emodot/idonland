@@ -30,6 +30,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
+                  top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
                 child: Text(

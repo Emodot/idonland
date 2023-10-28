@@ -48,6 +48,12 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_switch: ^0.3.2
 
+
+flutter_native_splash:
+  # background_image: assets/images/splash_bg.jpg
+  color: "#000000"
+  image: assets/images/splash_logo.png
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

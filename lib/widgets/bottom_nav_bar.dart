@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:idonland/ui/settings/settings_screen.dart';
+import 'package:idonland/ui/workplace/workplace_screen.dart';
 // import 'package:provider/provider.dart';
 // import 'package:idonland/data/provider/user_provider.dart';
 import 'package:idonland/utils/constant.dart';
@@ -74,11 +76,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => const AddAccount(),
-                //   ),
-                // );
+                onChanged?.call(1);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -132,7 +130,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // onChanged?.call(2);
+                onChanged?.call(2);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -166,11 +164,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(
-                //     builder: (context) => const SettingsScreen(),
-                //   ),
-                // );
+                onChanged?.call(3);
               },
               child: Column(
                 mainAxisSize: MainAxisSize.min,

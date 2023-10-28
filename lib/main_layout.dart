@@ -1,6 +1,9 @@
 // import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:idonland/ui/events/events_screen.dart';
+import 'package:idonland/ui/settings/settings_screen.dart';
+import 'package:idonland/ui/workplace/workplace_screen.dart';
 // import 'package:intl/intl.dart';
 import 'package:idonland/utils/constant.dart';
 import 'package:idonland/ui/dashboard/dashboard_screen.dart';
@@ -36,9 +39,9 @@ class _MainLayoutState extends State<MainLayout> {
         index: _index,
         children: const [
           DashboardScreen(),
-          // RootscardScreen(),
-          // WalletScreen(),
-          // SettingsScreen(),
+          WorkplaceScreen(),
+          EventsScreen(),
+          SettingsScreen(),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

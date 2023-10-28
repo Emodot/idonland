@@ -33,20 +33,26 @@ class _SearchScreenState extends State<SearchScreen> {
                   color: kWhite,
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: size.height * 0.03,
               ),
               Row(
                 children: [
-                  SvgPicture.asset('assets/icons/revert.svg'),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    padding: const EdgeInsets.all(0),
+                    icon: SvgPicture.asset('assets/icons/revert.svg'),
+                  ),
                   const SizedBox(
                     width: 20,
                   ),
                   const SeachInput(),
                 ],
               ),
-              const SizedBox(
-                height: 40,
+              SizedBox(
+                height: size.height * 0.04,
               ),
               Expanded(
                 child: Column(
@@ -60,7 +66,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       },
                       child: Container(
-                        height: 70,
+                        height: size.height * 0.07,
                         padding: EdgeInsets.symmetric(
                           horizontal: size.width * 0.08,
                         ),

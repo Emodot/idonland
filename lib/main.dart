@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:idonland/ui/onboarding/landing_screen.dart';
+import 'package:idonland/ui/splash_screen.dart';
 import 'package:idonland/widgets/unfocus.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
           ),
           // primarySwatch: Colors.blue,
         ),
-        home: const LandingScreen(),
+        initialRoute: '/',
+        routes: {'/': (context) => const SplashScreen()},
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:idonland/utils/constant.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 // import 'package:rootshive/utils/constant.dart';
 
@@ -188,7 +189,7 @@ getInputBox(BuildContext context) {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
     borderSide: const BorderSide(
-      color: Color(0xFF010D2C),
+      color: kPrimaryColor,
       width: 1.5,
     ),
   );

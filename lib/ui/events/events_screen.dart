@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:idonland/ui/dashboard/dashboard_screen.dart';
+import 'package:idonland/ui/dashboard/search_screen.dart';
 import 'package:idonland/utils/constant.dart';
 import 'package:idonland/utils/styles.dart';
 
@@ -83,13 +85,31 @@ class _EventsScreenState extends State<EventsScreen> {
                   top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
-                child: Text(
-                  'Events',
-                  style: TextStyle(
-                    fontSize: getLargerText(context),
-                    fontWeight: FontWeight.w500,
-                    color: kWhite,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Events',
+                      style: TextStyle(
+                        fontSize: getLargerText(context),
+                        fontWeight: FontWeight.w500,
+                        color: kWhite,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SearchScreen(),
+                          ),
+                        );
+                      },
+                      icon: SvgPicture.asset(
+                        'assets/icons/search-icon.svg',
+                      ),
+                      padding: const EdgeInsets.all(0),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(

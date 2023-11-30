@@ -262,6 +262,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   border: Border.all(
                                       width: 1, color: kPrimaryColor)),
                               labelColor: kWhite,
+                              labelPadding: const EdgeInsets.all(0),
+                              dividerHeight: 0,
                               labelStyle: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: getRegText(context),
@@ -270,13 +272,34 @@ class _DashboardScreenState extends State<DashboardScreen>
                               splashFactory: NoSplash.splashFactory,
                               tabs: const [
                                 Tab(
-                                  text: 'Work',
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'Work',
+                                      style: TextStyle(color: kWhite),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                                 Tab(
-                                  text: 'All',
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'All',
+                                      style: TextStyle(color: kWhite),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                                 Tab(
-                                  text: 'Events',
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    child: Text(
+                                      'Events',
+                                      style: TextStyle(color: kWhite),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

@@ -1,8 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:idonland/ui/dashboard/search_screen.dart';
+import 'package:idonland/ui/events/event_clockin.dart';
 import 'package:idonland/utils/constant.dart';
 import 'package:idonland/utils/styles.dart';
+
+List<Map<String, String>> allEvents = [
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'Rootshive',
+    'cardCategory': 'office',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'Rootshive',
+    'cardCategory': 'office',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'Rootshive',
+    'cardCategory': 'office',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'Rootshive',
+    'cardCategory': 'office',
+  },
+  {
+    'cardDate': 'Friday, December 1  |  11:00am',
+    'cardTitle': 'AI intro and everything',
+    'cardCategory': 'event',
+  },
+];
 
 class AllEvents extends StatefulWidget {
   const AllEvents({super.key});
@@ -22,14 +71,14 @@ class _AllEventsState extends State<AllEvents> {
           padding: EdgeInsets.only(
             left: size.width * 0.07,
             right: size.width * 0.07,
-            top: size.height * 0.02,
+            // top: size.height * 0.02,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: size.height * 0.02,
+                  // top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
                 child: Row(
@@ -58,6 +107,9 @@ class _AllEventsState extends State<AllEvents> {
                           ),
                           padding: const EdgeInsets.all(0),
                         ),
+                        SizedBox(
+                          width: size.width * 0.02,
+                        ),
                         IconButton(
                           onPressed: () {
                             Navigator.of(context).push(
@@ -71,7 +123,6 @@ class _AllEventsState extends State<AllEvents> {
                           ),
                           padding: const EdgeInsets.all(0),
                         ),
-
                       ],
                     ),
                   ],
@@ -105,15 +156,122 @@ class _AllEventsState extends State<AllEvents> {
               SizedBox(
                 height: size.height * 0.04,
               ),
-              const Expanded(
-                child: Column(
-                  children: [],
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      EventBox(
+                        size: size,
+                        boxData: allEvents,
+                        loading: false,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const EventClockin(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class EventBox extends StatefulWidget {
+  const EventBox({
+    super.key,
+    required this.size,
+    required this.boxData,
+    required this.loading,
+    required this.onTap,
+  });
+  final Size size;
+  final List boxData;
+  final bool loading;
+  final VoidCallback onTap;
+
+  @override
+  State<EventBox> createState() => _EventBoxState();
+}
+
+class _EventBoxState extends State<EventBox> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: widget.boxData.map((card_data) {
+        return GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            margin: EdgeInsets.only(bottom: widget.size.height * 0.01),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: Color(0xFF333333),
+              borderRadius: BorderRadius.all(
+                Radius.circular(8),
+              ),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: widget.size.width * 0.05,
+                vertical: widget.size.height * 0.02,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: card_data['cardCategory'] == 'event'
+                          ? kPrimaryColor
+                          : const Color(0xFF000000),
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 11,
+                        vertical: 5,
+                      ),
+                      child: Text(
+                        '${card_data['cardCategory']}',
+                        style: TextStyle(
+                          color: kWhite,
+                          height: 1,
+                          fontWeight: FontWeight.w600,
+                          fontSize: getSmallerRegText(context),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: widget.size.height * 0.01,
+                  ),
+                  Text(
+                    '${card_data['cardTitle']}',
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: getBiggerText(context),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "${card_data['cardDate']}",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: getRegText(context),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

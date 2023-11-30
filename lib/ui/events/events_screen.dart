@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:idonland/ui/dashboard/dashboard_screen.dart';
 import 'package:idonland/ui/dashboard/search_screen.dart';
+import 'package:idonland/ui/events/all_events.dart';
 import 'package:idonland/utils/constant.dart';
 import 'package:idonland/utils/styles.dart';
 
@@ -82,7 +83,7 @@ class _EventsScreenState extends State<EventsScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: size.height * 0.02,
+                  // top: size.height * 0.02,
                   left: size.width * 0.03,
                 ),
                 child: Row(
@@ -120,10 +121,31 @@ class _EventsScreenState extends State<EventsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Clocked-In Events',
-                        style: TextStyle(
-                            color: kWhite, fontSize: getBigRegText(context)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Clocked-In Events',
+                            style: TextStyle(
+                                color: kWhite,
+                                fontSize: getBigRegText(context)),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AllEvents(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: getBigRegText(context)),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: size.height * 0.01,
@@ -139,10 +161,31 @@ class _EventsScreenState extends State<EventsScreen> {
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Text(
-                        'Registered Events',
-                        style: TextStyle(
-                            color: kWhite, fontSize: getBigRegText(context)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Registered Events',
+                            style: TextStyle(
+                                color: kWhite,
+                                fontSize: getBigRegText(context)),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AllEvents(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: getBigRegText(context)),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: size.height * 0.01,
@@ -158,10 +201,31 @@ class _EventsScreenState extends State<EventsScreen> {
                       SizedBox(
                         height: size.height * 0.03,
                       ),
-                      Text(
-                        'Suggested Events',
-                        style: TextStyle(
-                            color: kWhite, fontSize: getBigRegText(context)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Suggested Events',
+                            style: TextStyle(
+                                color: kWhite,
+                                fontSize: getBigRegText(context)),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const AllEvents(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'View all',
+                              style: TextStyle(
+                                  color: kPrimaryColor,
+                                  fontSize: getBigRegText(context)),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: size.height * 0.01,
